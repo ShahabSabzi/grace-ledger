@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Grace Ledger</title>
+  <meta name="description" content="Elden Ring and Shadow of the Erdtree boss checklist in playthrough order.">
+  <meta name="theme-color" content="#1e1b16">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Grace Ledger">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="top-row">
+      <h1 class="title">Grace Ledger</h1>
+      <button class="profile-pill" id="profilePill" type="button" aria-label="Switch playthrough"></button>
+    </div>
+    <div class="tally" id="tally" aria-live="polite"></div>
+    <div class="bar" aria-hidden="true"><span id="tallyBar"></span></div>
+  </header>
+
+  <main id="main">
+    <!-- Bosses -->
+    <section class="view" id="view-bosses" aria-label="Bosses">
+      <div class="tools">
+        <label class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+          <input id="search" type="search" placeholder="Find a boss or place" autocomplete="off" enterkeyhint="search">
+        </label>
+        <div class="chips" id="chips" role="group" aria-label="Filters">
+          <button type="button" class="chip" data-f="alive">Alive</button>
+          <button type="button" class="chip" data-f="felled">Felled</button>
+          <button type="button" class="chip" data-f="main">Main path</button>
+          <button type="button" class="chip" data-f="night">Night</button>
+          <button type="button" class="chip" data-f="miss">Missable</button>
+        </div>
+      </div>
+      <div id="list"></div>
+    </section>
+
+    <!-- Next -->
+    <section class="view" id="view-next" aria-label="Next target" hidden></section>
+
+    <!-- Stats -->
+    <section class="view" id="view-stats" aria-label="Stats" hidden></section>
+
+    <!-- Settings -->
+    <section class="view" id="view-settings" aria-label="Settings" hidden></section>
+  </main>
+
+  <nav class="tabs" aria-label="Sections">
+    <button type="button" class="tab is-on" data-view="bosses">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16H6z"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>
+      <span>Bosses</span>
+    </button>
+    <button type="button" class="tab" data-view="next">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2.5 3 4 5.2 4 8a4 4 0 0 1-8 0c0-1.5.6-2.8 1.5-3.8.3 1.3 1 2 1.8 2.3C11 7.5 11.3 5.3 12 3z"/><path d="M8 20h8"/></svg>
+      <span>Next</span>
+    </button>
+    <button type="button" class="tab" data-view="stats">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>
+      <span>Stats</span>
+    </button>
+    <button type="button" class="tab" data-view="settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>
+      <span>Settings</span>
+    </button>
+  </nav>
+
+  <!-- Boss detail sheet -->
+  <div class="scrim" id="scrim" hidden></div>
+  <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+    <div class="grip" aria-hidden="true"></div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </section>
+
+  <div class="toast" id="toast" role="status" hidden>
+    <span id="toastText"></span>
+    <button type="button" id="toastUndo">Undo</button>
+  </div>
+
+  <div class="felled" id="felled" aria-hidden="true"><span>Enemy felled</span></div>
+
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+
+  <script src="data/bosses.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
